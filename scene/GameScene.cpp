@@ -83,7 +83,9 @@ void GameScene::Draw() {
 	modelPlayer_->Draw(worldTransformPlayer_, viewProjection_, textureHandlePlayer_);
 
 	//ビーム
-	modelBeam_->Draw(worldTransformBeam_, viewProjection_, textureHandleBeam_);
+	if (BeamFlag == 1) {
+		modelBeam_->Draw(worldTransformBeam_, viewProjection_, textureHandleBeam_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -143,6 +145,8 @@ void GameScene::PlayerUpdate() {
 //ビーム更新
 void GameScene::BeamUpdate() 
 {
+	//ビーム発生
+	BeamBron();
 	//移動
 	BeamMove();
 
@@ -150,21 +154,36 @@ void GameScene::BeamUpdate()
 	worldTransformBeam_.UpdateMatrix();
 }
 
+//ビーム発生
+void GameScene::BeamBron()
+{
+	if (input_->PushKey(DIK_SPACE)) 
+	{
+		if (BeamFlag == 0) 
+		{
+			worldTransformBeam_.translation_.x =
+				worldTransformPlayer_.translation_.x;
+			worldTransformBeam_.translation_.z =
+				worldTransformPlayer_.translation_.z;
+			BeamFlag = 1;
+		}
+	}
+}
+
 //ビーム移動
 void GameScene::BeamMove() 
 {
-	if (input_->PushKey(DIK_SPACE))
+	if (BeamFlag == 1) 
 	{
-		BeamAliveFlag = 1;
+		worldTransformBeam_.translation_.z += 1;
 	}
 
-	if (BeamAliveFlag == 1) 
+	if (worldTransformBeam_.translation_.z > 40)
 	{
-		worldTransformBeam_.translation_.y -= 1;
+		BeamFlag = 0;
+
 	}
 
-	if (worldTransformBeam_.translation_.y < -5)
-	{
-		BeamAliveFlag = 0;
-	}
+	//回転
+	worldTransformBeam_.rotation_.x += 0.1f;
 }

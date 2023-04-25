@@ -39,6 +39,7 @@ class GameScene {
 	void PlayerUpdate();//プレイヤー更新
 	void BeamUpdate();//ビーム更新
 	void BeamMove();//ビーム移動
+	void BeamBron();//ビーム発生
 
 	/// <summary>
 	/// 描画
@@ -76,5 +77,5 @@ class GameScene {
 	uint32_t textureHandleBeam_ = 0;
 	Model* modelBeam_ = nullptr;
 	WorldTransform worldTransformBeam_;
-	int BeamAliveFlag = 0;
+	int BeamFlag = 0;//ビーム存在フラグ
 };
