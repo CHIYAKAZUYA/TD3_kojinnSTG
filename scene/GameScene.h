@@ -47,6 +47,10 @@ class GameScene {
 	void EnemyMove();  //敵移動
 	void EnemyBron();  //敵発生
 
+	void collision();//衝突判定
+	void collisionPlayerEnemy();//プレイヤーと敵間の衝突判定
+	void colisionBeamEnemy();//ビームと敵間の衝突判定
+
 	/// <summary>
 	/// 描画
 	/// </summary>

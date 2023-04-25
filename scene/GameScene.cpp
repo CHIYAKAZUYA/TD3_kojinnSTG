@@ -64,6 +64,7 @@ void GameScene::Update() {
 	PlayerUpdate();//プレイヤー更新
 	BeamUpdate();//ビーム更新
 	EnemyUpdate();//敵更新
+	collision();//衝突判定更新
 }
 
 void GameScene::Draw() {
@@ -253,4 +254,59 @@ void GameScene::EnemyMove()
 
 	// 回転
 	worldTransformEnemy_.rotation_.x += 0.1f;
+}
+
+//------------------
+// 衝突判定
+//------------------
+
+void GameScene::collision() 
+{ 
+	//プレイヤーと敵間の衝突判定
+	collisionPlayerEnemy();
+
+	//ビームと敵間の衝突判定
+	colisionBeamEnemy();
+}
+
+//プレイヤーと敵間の衝突判定
+void GameScene::collisionPlayerEnemy() 
+{
+	//敵が存在するなら
+	if (EnemyFlag == 1) 
+	{
+		//差を求める
+		float dx = abs(worldTransformPlayer_.translation_.x
+			- worldTransformEnemy_.translation_.x);
+		float dz = abs(worldTransformPlayer_.translation_.z
+			- worldTransformEnemy_.translation_.z);
+
+		//衝突したら
+		if (dx < 1 && dz < 1)
+		{
+			//存在しない
+			EnemyFlag = 0;
+		}
+	}
+}
+
+//ビームと敵間の衝突判定
+void GameScene::colisionBeamEnemy()
+{
+	// 敵が存在するなら
+	if (EnemyFlag == 1)
+	{
+		// 差を求める
+		float dx = abs(worldTransformBeam_.translation_.x
+			- worldTransformEnemy_.translation_.x);
+		float dz = abs(worldTransformBeam_.translation_.z
+			- worldTransformEnemy_.translation_.z);
+
+		// 衝突したら
+		if (dx < 1 && dz < 1) {
+			// 存在しない
+			EnemyFlag = 0;
+			BeamFlag = 0;
+		}
+	}
 }
