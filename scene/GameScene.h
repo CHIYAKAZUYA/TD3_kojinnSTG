@@ -36,10 +36,16 @@ class GameScene {
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
+
 	void PlayerUpdate();//プレイヤー更新
+
 	void BeamUpdate();//ビーム更新
-	void BeamMove();//ビーム移動
-	void BeamBron();//ビーム発生
+	void BeamMove();  //ビーム移動
+	void BeamBron();  //ビーム発生
+
+	void EnemyUpdate();//敵更新
+	void EnemyMove();  //敵移動
+	void EnemyBron();  //敵発生
 
 	/// <summary>
 	/// 描画
@@ -78,4 +84,10 @@ class GameScene {
 	Model* modelBeam_ = nullptr;
 	WorldTransform worldTransformBeam_;
 	int BeamFlag = 0;//ビーム存在フラグ
+
+	//敵
+	uint32_t textureHandleEnemy_ = 0;
+	Model* modelEnemy_ = nullptr;
+	WorldTransform worldTransformEnemy_;
+	int EnemyFlag = 1; // 敵存在フラグ
 };

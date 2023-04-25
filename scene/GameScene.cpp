@@ -1,6 +1,7 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include<time.h>
 
 using namespace DirectX;
 
@@ -11,6 +12,7 @@ GameScene::~GameScene() {
 	delete modelStage_; //ステージ
 	delete modelPlayer_;//プレイヤー
 	delete modelBeam_;//ビーム
+	delete modelEnemy_;//敵
 }
 
 void GameScene::Initialize() {
@@ -47,11 +49,21 @@ void GameScene::Initialize() {
 	modelBeam_ = Model::Create();
 	worldTransformBeam_.scale_ = {0.3f, 0.3f, 0.3f};
 	worldTransformBeam_.Initialize();
+
+	//敵
+	textureHandleEnemy_ = TextureManager::Load("enemy.png");
+	modelEnemy_ = Model::Create();
+	worldTransformEnemy_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTransformEnemy_.Initialize();
+	EnemyFlag = 0;
+
+	srand((unsigned int)time(NULL));
 }
 
 void GameScene::Update() { 
 	PlayerUpdate();//プレイヤー更新
 	BeamUpdate();//ビーム更新
+	EnemyUpdate();//敵更新
 }
 
 void GameScene::Draw() {
@@ -85,6 +97,11 @@ void GameScene::Draw() {
 	//ビーム
 	if (BeamFlag == 1) {
 		modelBeam_->Draw(worldTransformBeam_, viewProjection_, textureHandleBeam_);
+	}
+
+	//敵
+	if (EnemyFlag == 1) {
+		modelEnemy_->Draw(worldTransformEnemy_, viewProjection_, textureHandleEnemy_);
 	}
 
 	// 3Dオブジェクト描画後処理
@@ -186,4 +203,54 @@ void GameScene::BeamMove()
 
 	//回転
 	worldTransformBeam_.rotation_.x += 0.1f;
+}
+
+
+//------------------
+// 敵
+//------------------
+
+void GameScene::EnemyUpdate() 
+{ 
+	//敵発生
+	EnemyBron(); 
+
+	//敵移動
+	EnemyMove();
+
+	// 行列更新
+	worldTransformEnemy_.UpdateMatrix();
+}
+
+//敵発生
+void GameScene::EnemyBron()
+{
+	if (EnemyFlag == 0)
+	{
+		int x = rand() % 80;
+		float x2 = (float)x / 10 - 4;
+		worldTransformEnemy_.translation_.x = x2;
+		worldTransformEnemy_.translation_.z = 40;
+		EnemyFlag = 1; 
+	}
+
+	if (EnemyFlag == 1)
+	{
+		if (worldTransformEnemy_.translation_.z < -5)
+		{
+			EnemyFlag = 0;
+		}
+	}
+}
+
+//敵移動
+void GameScene::EnemyMove() 
+{ 
+	if (EnemyFlag == 1)
+	{
+		worldTransformEnemy_.translation_.z -= 0.5f;
+	}
+
+	// 回転
+	worldTransformEnemy_.rotation_.x += 0.1f;
 }
