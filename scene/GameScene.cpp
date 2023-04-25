@@ -10,6 +10,7 @@ GameScene::~GameScene() {
 	delete spriteBG_;   // BG
 	delete modelStage_; //ステージ
 	delete modelPlayer_;//プレイヤー
+	delete modelBeam_;//ビーム
 }
 
 void GameScene::Initialize() {
@@ -40,10 +41,17 @@ void GameScene::Initialize() {
 	modelPlayer_ = Model::Create();
 	worldTransformPlayer_.scale_ = {0.5f, 0.5f, 0.5f};
 	worldTransformPlayer_.Initialize();
+
+	//ビーム
+	textureHandleBeam_ = TextureManager::Load("beam.png");
+	modelBeam_ = Model::Create();
+	worldTransformBeam_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTransformBeam_.Initialize();
 }
 
 void GameScene::Update() { 
 	PlayerUpdate();//プレイヤー更新
+	BeamUpdate();//ビーム更新
 }
 
 void GameScene::Draw() {
@@ -73,6 +81,9 @@ void GameScene::Draw() {
 
 	//プレイヤー
 	modelPlayer_->Draw(worldTransformPlayer_, viewProjection_, textureHandlePlayer_);
+
+	//ビーム
+	modelBeam_->Draw(worldTransformBeam_, viewProjection_, textureHandleBeam_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -125,3 +136,35 @@ void GameScene::PlayerUpdate() {
 	worldTransformPlayer_.UpdateMatrix();
 }
 
+//------------------
+//ビーム
+//------------------
+
+//ビーム更新
+void GameScene::BeamUpdate() 
+{
+	//移動
+	BeamMove();
+
+	//行列更新
+	worldTransformBeam_.UpdateMatrix();
+}
+
+//ビーム移動
+void GameScene::BeamMove() 
+{
+	if (input_->PushKey(DIK_SPACE))
+	{
+		BeamAliveFlag = 1;
+	}
+
+	if (BeamAliveFlag == 1) 
+	{
+		worldTransformBeam_.translation_.y -= 1;
+	}
+
+	if (worldTransformBeam_.translation_.y < -5)
+	{
+		BeamAliveFlag = 0;
+	}
+}
