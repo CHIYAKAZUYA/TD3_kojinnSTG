@@ -113,9 +113,15 @@ void GameScene::Draw() {
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
-	/// <summary>
-	/// ここに前景スプライトの描画処理を追加できる
-	/// </summary>
+	//ゲームスコア
+	char str[100];
+	sprintf_s(str, "SCORE %d", GameScore_);
+	debugText_->Print(str, 200, 10, 2);
+
+	//プレイヤーライフ
+	char str2[100];
+	sprintf_s(str2, "LIFE %d", playerLife_);
+	debugText_->Print(str2, 800, 10, 2);
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
@@ -284,6 +290,7 @@ void GameScene::collisionPlayerEnemy()
 		//衝突したら
 		if (dx < 1 && dz < 1)
 		{
+			playerLife_ -= 1;
 			//存在しない
 			EnemyFlag = 0;
 		}
@@ -303,7 +310,9 @@ void GameScene::colisionBeamEnemy()
 			- worldTransformEnemy_.translation_.z);
 
 		// 衝突したら
-		if (dx < 1 && dz < 1) {
+		if (dx < 1 && dz < 1)
+		{
+			GameScore_ += 150;
 			// 存在しない
 			EnemyFlag = 0;
 			BeamFlag = 0;

@@ -51,6 +51,9 @@ class GameScene {
 	void collisionPlayerEnemy();//プレイヤーと敵間の衝突判定
 	void colisionBeamEnemy();//ビームと敵間の衝突判定
 
+	int GameScore_ = 0;//ゲームスコア
+	int playerLife_ = 3;//プレイヤーライフ
+
 	/// <summary>
 	/// 描画
 	/// </summary>
