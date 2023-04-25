@@ -36,6 +36,7 @@ class GameScene {
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
+	void PlayerUpdate();//プレイヤー更新
 
 	/// <summary>
 	/// 描画
@@ -63,4 +64,8 @@ class GameScene {
 	uint32_t textureHandleStage_ = 0;
 	Model* modelStage_ = nullptr;
 	WorldTransform worldTransformStage_;
+
+	uint32_t textureHandlePlayer_ = 0;
+	Model* modelPlayer_ = nullptr;
+	WorldTransform worldTransformPlayer_;
 };

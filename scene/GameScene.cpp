@@ -9,6 +9,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete spriteBG_;   // BG
 	delete modelStage_; //ステージ
+	delete modelPlayer_;//プレイヤー
 }
 
 void GameScene::Initialize() {
@@ -33,9 +34,17 @@ void GameScene::Initialize() {
 	worldTransformStage_.translation_ = {0, -1.5f, 0};
 	worldTransformStage_.scale_ = {4.5f, 1, 40};
 	worldTransformStage_.Initialize();
+
+	//プレイヤー
+	textureHandlePlayer_ = TextureManager::Load("player.png");
+	modelPlayer_ = Model::Create();
+	worldTransformPlayer_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTransformPlayer_.Initialize();
 }
 
-void GameScene::Update() {}
+void GameScene::Update() { 
+	PlayerUpdate();//プレイヤー更新
+}
 
 void GameScene::Draw() {
 
@@ -62,6 +71,9 @@ void GameScene::Draw() {
 	//ステージ
 	modelStage_->Draw(worldTransformStage_, viewProjection_, textureHandleStage_);
 
+	//プレイヤー
+	modelPlayer_->Draw(worldTransformPlayer_, viewProjection_, textureHandlePlayer_);
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -82,3 +94,34 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
+
+//------------------
+//プレイヤー
+//------------------
+
+//プレイヤー更新
+void GameScene::PlayerUpdate() {
+	//移動
+
+	//右へ移動
+	if (input_->PushKey(DIK_RIGHT)) 
+	{
+		if (worldTransformPlayer_.translation_.x <= 4)
+		{
+			worldTransformPlayer_.translation_.x += 0.1f;
+		}
+	}
+
+	//左に移動
+	if (input_->PushKey(DIK_LEFT)) 
+	{
+		if (worldTransformPlayer_.translation_.x >= -4) 
+		{
+			worldTransformPlayer_.translation_.x -= 0.1f;
+		}
+	}
+
+	//行列更新
+	worldTransformPlayer_.UpdateMatrix();
+}
+
