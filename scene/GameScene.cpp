@@ -60,8 +60,15 @@ void GameScene::Initialize() {
 	srand((unsigned int)time(NULL));
 }
 
-void GameScene::Update() {
-	GameScene::GamePlayUpdate(); 
+void GameScene::Update() 
+{
+	//各シーンの更新処理を呼び出す
+	switch (sceneMode_) 
+	{
+	case 0:
+		GameScene::GamePlayUpdate();//ゲームプレイ更新
+		break;
+	}
 }
 
 void GameScene::GamePlayUpdate() {
@@ -79,8 +86,12 @@ void GameScene::Draw() {
 #pragma region 背景スプライト描画
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(commandList);
-
-	GameScene::GamePlayDraw2DBack();//ゲームプレイ2D背景表示
+	switch (sceneMode_) 
+	{
+	case 0:
+		GameScene::GamePlayDraw2DBack(); // ゲームプレイ2D背景表示
+		break;
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -91,8 +102,12 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
-
-	GameScene::GamePlayDraw3D();//ゲームプレイ3D表示
+	switch (sceneMode_) 
+	{
+	case 0:
+		GameScene::GamePlayDraw3D(); // ゲームプレイ3D表示
+		break;
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -101,8 +116,12 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
-
-	GameScene::GamePlayDraw2DNear();//ゲームプレイ2D近景表示
+	switch (sceneMode_) 
+	{
+	case 0:
+		GameScene::GamePlayDraw2DNear(); // ゲームプレイ2D近景表示
+		break;
+	}
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);

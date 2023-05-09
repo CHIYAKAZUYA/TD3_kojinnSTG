@@ -56,6 +56,8 @@ class GameScene {
 	int GameScore_ = 0;//ゲームスコア
 	int playerLife_ = 3;//プレイヤーライフ
 
+	int sceneMode_ = 0;//シーンモード(0:ゲームプレイ　1:タイトル)
+
 	/// <summary>
 	/// 描画
 	/// </summary>
