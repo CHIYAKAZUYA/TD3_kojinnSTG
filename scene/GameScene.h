@@ -35,6 +35,8 @@ class GameScene {
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
+	void GamePlayUpdate();//ゲームプレイ更新
+	
 	void Update();
 
 	void PlayerUpdate();//プレイヤー更新
@@ -57,6 +59,10 @@ class GameScene {
 	/// <summary>
 	/// 描画
 	/// </summary>
+	void GamePlayDraw3D();//ゲームプレイ3D表示
+	void GamePlayDraw2DBack();//ゲームプレイ背景2D表示
+	void GamePlayDraw2DNear();//ゲームプレイ近景2D表示
+	
 	void Draw();
 
   private: // メンバ変数

@@ -67,6 +67,10 @@ void GameScene::Update() {
 	collision();//衝突判定更新
 }
 
+void GameScene::GamePlayUpdate() {
+
+}
+
 void GameScene::Draw() {
 
 	// コマンドリストの取得
