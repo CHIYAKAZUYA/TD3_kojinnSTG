@@ -140,6 +140,11 @@ void GameScene::GamePlayDraw3D(){
 	}
 }
 
+void GameScene::GamePlayDraw2DBack() {
+	// 背景
+	spriteBG_->Draw();
+}
+
 //------------------
 //プレイヤー
 //------------------
