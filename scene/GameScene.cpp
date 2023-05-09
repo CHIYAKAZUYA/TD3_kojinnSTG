@@ -60,8 +60,8 @@ void GameScene::Initialize() {
 	srand((unsigned int)time(NULL));
 }
 
-void GameScene::Update() { 
-	
+void GameScene::Update() {
+	GameScene::GamePlayUpdate(); 
 }
 
 void GameScene::GamePlayUpdate() {
@@ -80,8 +80,7 @@ void GameScene::Draw() {
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
-	//背景
-	spriteBG_->Draw();
+	GameScene::GamePlayDraw2DBack();//ゲームプレイ2D背景表示
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -93,7 +92,7 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
 
-	
+	GameScene::GamePlayDraw3D();//ゲームプレイ3D表示
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -102,6 +101,8 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
+
+	GameScene::GamePlayDraw2DNear();//ゲームプレイ2D近景表示
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
