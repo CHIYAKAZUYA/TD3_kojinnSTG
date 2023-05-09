@@ -103,16 +103,6 @@ void GameScene::Draw() {
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
-	//ゲームスコア
-	char str[100];
-	sprintf_s(str, "SCORE %d", GameScore_);
-	debugText_->Print(str, 200, 10, 2);
-
-	//プレイヤーライフ
-	char str2[100];
-	sprintf_s(str2, "LIFE %d", playerLife_);
-	debugText_->Print(str2, 800, 10, 2);
-
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
 	//
@@ -143,6 +133,18 @@ void GameScene::GamePlayDraw3D(){
 void GameScene::GamePlayDraw2DBack() {
 	// 背景
 	spriteBG_->Draw();
+}
+
+void GameScene::GamePlayDraw2DNear() {
+	// ゲームスコア
+	char str[100];
+	sprintf_s(str, "SCORE %d", GameScore_);
+	debugText_->Print(str, 200, 10, 2);
+
+	// プレイヤーライフ
+	char str2[100];
+	sprintf_s(str2, "LIFE %d", playerLife_);
+	debugText_->Print(str2, 800, 10, 2);
 }
 
 //------------------
