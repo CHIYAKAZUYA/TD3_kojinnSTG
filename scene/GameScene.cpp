@@ -61,14 +61,14 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() { 
-	PlayerUpdate();//プレイヤー更新
-	BeamUpdate();//ビーム更新
-	EnemyUpdate();//敵更新
-	collision();//衝突判定更新
+	
 }
 
 void GameScene::GamePlayUpdate() {
-
+	PlayerUpdate(); // プレイヤー更新
+	BeamUpdate();   // ビーム更新
+	EnemyUpdate();  // 敵更新
+	collision();    // 衝突判定更新
 }
 
 void GameScene::Draw() {
@@ -134,6 +134,10 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
+}
+
+void GameScene::GamePlayDraw3D(){
+
 }
 
 //------------------
