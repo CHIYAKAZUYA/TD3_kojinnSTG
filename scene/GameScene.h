@@ -55,11 +55,15 @@ class GameScene {
 
 	void TitleUpdate();//タイトル更新
 
+	void GameOverUpdate();//ゲームオーバー更新
+
+	void GamePlayStart();//ゲーム開始時初期化関数
+
 	int GameScore_ = 0;//ゲームスコア
 	int playerLife_ = 3;//プレイヤーライフ
 	int GameTimer_ = 0;// タイマー変数
 
-	int sceneMode_ = 1;//シーンモード(0:ゲームプレイ　1:タイトル)
+	int sceneMode_ = 1;//シーンモード(0:ゲームプレイ　1:タイトル　2:ゲームオーバー)
 
 	/// <summary>
 	/// 描画
@@ -71,6 +75,8 @@ class GameScene {
 	void Draw();
 
 	void TitleDraw2DNear(); // タイトル近景2D
+
+	void GameOverDraw2DNear();//ゲームオーバー近景2D
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -118,4 +124,8 @@ class GameScene {
 	//エンター表示
 	uint32_t textureHandleEnter_ = 0;
 	Sprite* spriteEnter_ = nullptr;
+
+	//ゲームオーバー
+	uint32_t textureHandleGameOver_ = 0;
+	Sprite* spriteGameOver_ = nullptr;
 };
