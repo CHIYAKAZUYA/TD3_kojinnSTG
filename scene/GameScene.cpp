@@ -13,6 +13,8 @@ GameScene::~GameScene() {
 	delete modelPlayer_;//プレイヤー
 	delete modelBeam_;//ビーム
 	delete modelEnemy_;//敵
+	delete spriteTitle_;//タイトル
+	delete spriteEnter_;//エンター
 }
 
 void GameScene::Initialize() {
@@ -57,11 +59,20 @@ void GameScene::Initialize() {
 	worldTransformEnemy_.Initialize();
 	EnemyFlag = 0;
 
+	//タイトル
+	textureHandleTitle_ = TextureManager::Load("title.png");
+	spriteTitle_ = Sprite::Create(textureHandleTitle_, {0, 0});
+
+	//エンター
+	textureHandleEnter_ = TextureManager::Load("enter.png");
+	spriteEnter_ = Sprite::Create(textureHandleEnter_, {390,420 });
+
 	srand((unsigned int)time(NULL));
 }
 
 void GameScene::Update() 
 {
+	GameTimer_++;
 	//各シーンの更新処理を呼び出す
 	switch (sceneMode_) 
 	{
@@ -107,6 +118,8 @@ void GameScene::Draw() {
 	case 0:
 		GameScene::GamePlayDraw3D(); // ゲームプレイ3D表示
 		break;
+	case 1:
+		GameScene::TitleUpdate();//タイトル更新
 	}
 
 	// 3Dオブジェクト描画後処理
@@ -121,6 +134,8 @@ void GameScene::Draw() {
 	case 0:
 		GameScene::GamePlayDraw2DNear(); // ゲームプレイ2D近景表示
 		break;
+	case 1:
+		GameScene::TitleDraw2DNear();//タイトル2D表示
 	}
 
 	// デバッグテキストの描画
@@ -352,5 +367,27 @@ void GameScene::colisionBeamEnemy()
 			EnemyFlag = 0;
 			BeamFlag = 0;
 		}
+	}
+}
+
+//------------------
+// タイトル
+//------------------
+//タイトル更新
+void GameScene::TitleUpdate() {
+	if (input_->PushKey(DIK_RETURN)) 
+	{
+		sceneMode_ = 0;
+	}
+}
+
+//タイトル表示
+void GameScene::TitleDraw2DNear() 
+{ 
+	spriteTitle_->Draw(); 
+	if (GameTimer_ % 40 >= 20) 
+	{
+		//エンター表示
+		spriteEnter_->Draw();
 	}
 }

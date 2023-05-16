@@ -53,10 +53,13 @@ class GameScene {
 	void collisionPlayerEnemy();//プレイヤーと敵間の衝突判定
 	void colisionBeamEnemy();//ビームと敵間の衝突判定
 
+	void TitleUpdate();//タイトル更新
+
 	int GameScore_ = 0;//ゲームスコア
 	int playerLife_ = 3;//プレイヤーライフ
+	int GameTimer_ = 0;// タイマー変数
 
-	int sceneMode_ = 0;//シーンモード(0:ゲームプレイ　1:タイトル)
+	int sceneMode_ = 1;//シーンモード(0:ゲームプレイ　1:タイトル)
 
 	/// <summary>
 	/// 描画
@@ -66,6 +69,8 @@ class GameScene {
 	void GamePlayDraw2DNear();//ゲームプレイ近景2D表示
 	
 	void Draw();
+
+	void TitleDraw2DNear(); // タイトル近景2D
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -105,4 +110,12 @@ class GameScene {
 	Model* modelEnemy_ = nullptr;
 	WorldTransform worldTransformEnemy_;
 	int EnemyFlag = 1; // 敵存在フラグ
+
+	//タイトル
+	uint32_t textureHandleTitle_ = 0;
+	Sprite* spriteTitle_ = nullptr;
+
+	//エンター表示
+	uint32_t textureHandleEnter_ = 0;
+	Sprite* spriteEnter_ = nullptr;
 };
