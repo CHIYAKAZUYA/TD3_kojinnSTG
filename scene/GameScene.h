@@ -108,14 +108,16 @@ class GameScene {
 	//ビーム
 	uint32_t textureHandleBeam_ = 0;
 	Model* modelBeam_ = nullptr;
-	WorldTransform worldTransformBeam_;
-	int BeamFlag = 0;//ビーム存在フラグ
+	WorldTransform worldTransformBeam_[10];
+	int BeamFlag[10] = {}; // ビーム存在フラグ
+	int beamTimer = 0;//ビーム発生タイマー
 
 	//敵
 	uint32_t textureHandleEnemy_ = 0;
 	Model* modelEnemy_ = nullptr;
-	WorldTransform worldTransformEnemy_;
-	int EnemyFlag = 1; // 敵存在フラグ
+	WorldTransform worldTransformEnemy_[10];
+	int EnemyFlag[10] = {}; // 敵存在フラグ
+	float enemySpeed[10] = {};
 
 	//タイトル
 	uint32_t textureHandleTitle_ = 0;
