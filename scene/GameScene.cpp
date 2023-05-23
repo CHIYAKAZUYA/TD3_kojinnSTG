@@ -35,11 +35,14 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	// ステージ
-	textureHandleStage_ = TextureManager::Load("stage.jpg");
+	textureHandleStage_ = TextureManager::Load("stage2.jpg");
 	modelStage_ = Model::Create();
-	worldTransformStage_.translation_ = {0, -1.5f, 0};
-	worldTransformStage_.scale_ = {4.5f, 1, 40};
-	worldTransformStage_.Initialize();
+	for (int i = 0; i < 20; i++) 
+	{
+		worldTransformStage_[i].translation_ = {0, -1.5f, 2.0f * i-5};
+		worldTransformStage_[i].scale_ = {4.5f, 1, 1};
+		worldTransformStage_[i].Initialize();
+	}
 
 	// プレイヤー
 	textureHandlePlayer_ = TextureManager::Load("player.png");
@@ -113,6 +116,7 @@ void GameScene::GamePlayUpdate() {
 	BeamUpdate();   // ビーム更新
 	EnemyUpdate();  // 敵更新
 	collision();    // 衝突判定更新
+	stageUpdate();  // ステージ更新
 
 	if (playerLife_ <= 0)
 	{
@@ -195,7 +199,10 @@ void GameScene::Draw() {
 
 void GameScene::GamePlayDraw3D(){
 	// ステージ
-	modelStage_->Draw(worldTransformStage_, viewProjection_, textureHandleStage_);
+	for (int i = 0; i < 20; i++)
+	{
+		modelStage_->Draw(worldTransformStage_[i], viewProjection_, textureHandleStage_);
+	}
 
 	// プレイヤー
 	modelPlayer_->Draw(worldTransformPlayer_, viewProjection_, textureHandlePlayer_);
@@ -542,5 +549,26 @@ void GameScene::GamePlayStart() {
 	{
 		EnemyFlag[i] = 0;
 		BeamFlag[i] = 0;
+	}
+}
+
+//------------------
+// ステージ
+//------------------
+// ステージ更新
+void GameScene::stageUpdate() 
+{
+	//各ステージでループ
+	for(int i = 0; i < 20; i++)
+	{
+		//手前に移動
+		worldTransformStage_[i].translation_.z -= 0.1f;
+		//端まで来たら奥に戻る
+		if (worldTransformStage_[i].translation_.z < -5) 
+		{
+			worldTransformStage_[i].translation_.z += 40;
+		}
+		//行列更新
+		worldTransformStage_[i].UpdateMatrix();
 	}
 }

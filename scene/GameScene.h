@@ -59,6 +59,8 @@ class GameScene {
 
 	void GamePlayStart();//ゲーム開始時初期化関数
 
+	void stageUpdate();//ステージ更新
+
 	int GameScore_ = 0;//ゲームスコア
 	int playerLife_ = 3;//プレイヤーライフ
 	int GameTimer_ = 0;// タイマー変数
@@ -98,7 +100,7 @@ class GameScene {
 	//ステージ
 	uint32_t textureHandleStage_ = 0;
 	Model* modelStage_ = nullptr;
-	WorldTransform worldTransformStage_;
+	WorldTransform worldTransformStage_[20];
 	
 	//プレイヤー
 	uint32_t textureHandlePlayer_ = 0;
