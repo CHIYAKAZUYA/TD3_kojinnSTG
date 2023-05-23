@@ -42,12 +42,13 @@ class GameScene {
 	void PlayerUpdate();//プレイヤー更新
 
 	void BeamUpdate();//ビーム更新
-	void BeamMove();  //ビーム移動
-	void BeamBron();  //ビーム発生
+	void BeamMove();//ビーム移動
+	void BeamBron();//ビーム発生
 
 	void EnemyUpdate();//敵更新
-	void EnemyMove();  //敵移動
-	void EnemyBron();  //敵発生
+	void EnemyMove();//敵移動
+	void EnemyBorn();//敵発生
+	void EnemyJamp();//敵ジャンプ
 
 	void collision();//衝突判定
 	void collisionPlayerEnemy();//プレイヤーと敵間の衝突判定
@@ -120,6 +121,7 @@ class GameScene {
 	WorldTransform worldTransformEnemy_[10];
 	int EnemyFlag[10] = {}; // 敵存在フラグ
 	float enemySpeed[10] = {};
+	float enemyJampSpeed[10] = {};
 
 	//タイトル
 	uint32_t textureHandleTitle_ = 0;
