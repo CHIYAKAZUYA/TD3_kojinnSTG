@@ -77,6 +77,16 @@ void GameScene::Initialize() {
 	textureHandleGameOver_ = TextureManager::Load("gameover.png");
 	spriteGameOver_ = Sprite::Create(textureHandleGameOver_, {0, 100});
 
+	//サウンドデータの読み込み
+	soundDataHandleTitleBGM_ = audio_->LoadWave("Audio/Ring05.wav");
+	soundDataHandleGamePlayBGM_ = audio_->LoadWave("Audio/Ring08.wav");
+	soundDataHandleGameOverBGM_ = audio_->LoadWave("Audio/Ring09.wav");
+	soundDataHandleEnemyHitSE_ = audio_->LoadWave("Audio/chord.wav");
+	soundDataHandlePlayerHitSE_ = audio_->LoadWave("Audio/tada.wav");
+
+	//タイトルBGMを再生
+	voiceHandleBGM_ = audio_->PlayWave(soundDataHandleTitleBGM_, true);
+
 	srand((unsigned int)time(NULL));
 }
 
@@ -106,6 +116,11 @@ void GameScene::GamePlayUpdate() {
 
 	if (playerLife_ <= 0)
 	{
+		//BGM切り替え
+		//BGMを停止
+		audio_->StopWave(voiceHandleBGM_);
+		//ゲームオーバーBGMを再生
+		voiceHandleBGM_ = audio_->PlayWave(soundDataHandleGameOverBGM_, true);
 		sceneMode_ = 2;
 	}
 }
@@ -468,6 +483,12 @@ void GameScene::TitleUpdate() {
 	{
 		GameScene::GamePlayStart();
 		sceneMode_ = 0;
+
+		//BGM切り替え
+		// BGMを停止
+		audio_->StopWave(voiceHandleBGM_);
+		// ゲームプレイBGMを再生
+		voiceHandleBGM_ = audio_->PlayWave(soundDataHandleGamePlayBGM_, true);
 	}
 }
 
@@ -489,6 +510,11 @@ void GameScene::TitleDraw2DNear()
 // ゲームオーバー更新
 void GameScene::GameOverUpdate() {
 	if (input_->PushKey(DIK_RETURN)) {
+		//BGM切り替え
+		//BGMを停止
+		audio_->StopWave(voiceHandleBGM_);
+		//タイトルBGMを再生
+		audio_->PlayWave(soundDataHandleTitleBGM_, true);
 		sceneMode_ -= 1;
 	}
 }

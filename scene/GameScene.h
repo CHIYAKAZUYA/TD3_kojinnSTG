@@ -130,4 +130,12 @@ class GameScene {
 	//ゲームオーバー
 	uint32_t textureHandleGameOver_ = 0;
 	Sprite* spriteGameOver_ = nullptr;
+
+	//サウンド
+	uint32_t soundDataHandleTitleBGM_ = 0;//タイトルBGM
+	uint32_t soundDataHandleGamePlayBGM_ = 0;//ゲームプレイBGM
+	uint32_t soundDataHandleGameOverBGM_ = 0;//ゲームオーバーBGM
+	uint32_t soundDataHandleEnemyHitSE_ = 0;//敵ヒットSE
+	uint32_t soundDataHandlePlayerHitSE_ = 0;//プレイヤーヒットSE
+	uint32_t voiceHandleBGM_ = 0;//音声再生ハンドル
 };
