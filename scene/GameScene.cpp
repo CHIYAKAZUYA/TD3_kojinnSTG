@@ -438,8 +438,12 @@ void GameScene::collisionPlayerEnemy()
 			// 衝突したら
 			if (dx < 1 && dz < 1) {
 				playerLife_ -= 1;
+
 				// 存在しない
 				EnemyFlag[e] = 0;
+
+				//プレイヤーヒットSE
+				audio_->PlayWave(soundDataHandlePlayerHitSE_);
 				break;
 			}
 		}
@@ -467,6 +471,9 @@ void GameScene::colisionBeamEnemy()
 					// 存在しない
 					EnemyFlag[e] = 0;
 					BeamFlag[b] = 0;
+
+					//敵ヒットSEを再生
+					audio_->PlayWave(soundDataHandleEnemyHitSE_);
 				}
 				break;
 			}
