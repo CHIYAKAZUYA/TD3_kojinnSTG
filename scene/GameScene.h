@@ -65,6 +65,7 @@ class GameScene {
 	int GameScore_ = 0;//ゲームスコア
 	int playerLife_ = 3;//プレイヤーライフ
 	int GameTimer_ = 0;// タイマー変数
+	int playerTimer_ = 0;//プレイヤー点滅タイマー
 
 	int sceneMode_ = 1;//シーンモード(0:ゲームプレイ　1:タイトル　2:ゲームオーバー)
 
@@ -80,6 +81,8 @@ class GameScene {
 	void TitleDraw2DNear(); // タイトル近景2D
 
 	void GameOverDraw2DNear();//ゲームオーバー近景2D
+
+	void DrawScore();
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -142,4 +145,13 @@ class GameScene {
 	uint32_t soundDataHandleEnemyHitSE_ = 0;//敵ヒットSE
 	uint32_t soundDataHandlePlayerHitSE_ = 0;//プレイヤーヒットSE
 	uint32_t voiceHandleBGM_ = 0;//音声再生ハンドル
+
+	//スコア数値(スプライト)
+	uint32_t textureHandleNumber_ = 0;
+	Sprite* spriteNumber_[5] = {};
+	uint32_t textureHandleScore_ = 0;
+	Sprite* spriteScore_ = 0;
+
+	//ライフ数値
+	Sprite* spriteLife_[3] = {};
 };
