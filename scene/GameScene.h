@@ -42,12 +42,13 @@ class GameScene {
 	void PlayerUpdate();//プレイヤー更新
 
 	void BeamUpdate();//ビーム更新
-	void BeamMove();  //ビーム移動
-	void BeamBron();  //ビーム発生
+	void BeamMove();//ビーム移動
+	void BeamBron();//ビーム発生
 
 	void EnemyUpdate();//敵更新
-	void EnemyMove();  //敵移動
-	void EnemyBron();  //敵発生
+	void EnemyMove();//敵移動
+	void EnemyBorn();//敵発生
+	void EnemyJamp();//敵ジャンプ
 
 	void collision();//衝突判定
 	void collisionPlayerEnemy();//プレイヤーと敵間の衝突判定
@@ -59,9 +60,12 @@ class GameScene {
 
 	void GamePlayStart();//ゲーム開始時初期化関数
 
+	void stageUpdate();//ステージ更新
+
 	int GameScore_ = 0;//ゲームスコア
 	int playerLife_ = 3;//プレイヤーライフ
 	int GameTimer_ = 0;// タイマー変数
+	int playerTimer_ = 0;//プレイヤー点滅タイマー
 
 	int sceneMode_ = 1;//シーンモード(0:ゲームプレイ　1:タイトル　2:ゲームオーバー)
 
@@ -77,6 +81,8 @@ class GameScene {
 	void TitleDraw2DNear(); // タイトル近景2D
 
 	void GameOverDraw2DNear();//ゲームオーバー近景2D
+
+	void DrawScore();
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -98,7 +104,7 @@ class GameScene {
 	//ステージ
 	uint32_t textureHandleStage_ = 0;
 	Model* modelStage_ = nullptr;
-	WorldTransform worldTransformStage_;
+	WorldTransform worldTransformStage_[20];
 	
 	//プレイヤー
 	uint32_t textureHandlePlayer_ = 0;
@@ -118,6 +124,7 @@ class GameScene {
 	WorldTransform worldTransformEnemy_[10];
 	int EnemyFlag[10] = {}; // 敵存在フラグ
 	float enemySpeed[10] = {};
+	float enemyJampSpeed[10] = {};
 
 	//タイトル
 	uint32_t textureHandleTitle_ = 0;
@@ -130,4 +137,21 @@ class GameScene {
 	//ゲームオーバー
 	uint32_t textureHandleGameOver_ = 0;
 	Sprite* spriteGameOver_ = nullptr;
+
+	//サウンド
+	uint32_t soundDataHandleTitleBGM_ = 0;//タイトルBGM
+	uint32_t soundDataHandleGamePlayBGM_ = 0;//ゲームプレイBGM
+	uint32_t soundDataHandleGameOverBGM_ = 0;//ゲームオーバーBGM
+	uint32_t soundDataHandleEnemyHitSE_ = 0;//敵ヒットSE
+	uint32_t soundDataHandlePlayerHitSE_ = 0;//プレイヤーヒットSE
+	uint32_t voiceHandleBGM_ = 0;//音声再生ハンドル
+
+	//スコア数値(スプライト)
+	uint32_t textureHandleNumber_ = 0;
+	Sprite* spriteNumber_[5] = {};
+	uint32_t textureHandleScore_ = 0;
+	Sprite* spriteScore_ = 0;
+
+	//ライフ数値
+	Sprite* spriteLife_[3] = {};
 };
