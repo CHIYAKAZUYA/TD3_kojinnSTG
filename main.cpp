@@ -1,6 +1,7 @@
 ﻿#include "Audio.h"
 #include "DirectXCommon.h"
-#include "GameScene.h"
+//#include "GameScene.h"
+#include"GameSceneBumpGame.h"
 #include "TextureManager.h"
 #include "WinApp.h"
 #include "AxisIndicator.h"
@@ -14,7 +15,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Audio* audio = nullptr;
 	DebugText* debugText = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
-	GameScene* gameScene = nullptr;
+	//GameScene* gameScene = nullptr;
+	GameSceneBumpGame* gameSceneBumpGame = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -53,8 +55,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #pragma endregion
 
 	// ゲームシーンの初期化
-	gameScene = new GameScene();
-	gameScene->Initialize();
+	//gameScene = new GameScene();
+	//gameScene->Initialize();
+	gameSceneBumpGame = new GameSceneBumpGame();
+	gameSceneBumpGame->Initialize();
 
 	// メインループ
 	while (true) {
@@ -66,14 +70,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 入力関連の毎フレーム処理
 		input->Update();
 		// ゲームシーンの毎フレーム処理
-		gameScene->Update();
+		gameSceneBumpGame->Update();
 		// 軸表示の更新
 		axisIndicator->Update();
 
 		// 描画開始
 		dxCommon->PreDraw();
 		// ゲームシーンの描画
-		gameScene->Draw();
+		gameSceneBumpGame->Draw();
 		// 軸表示の描画
 		axisIndicator->Draw();
 		// 描画終了
@@ -81,7 +85,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 
 	// 各種解放
-	SafeDelete(gameScene);
+	SafeDelete(gameSceneBumpGame);
 	audio->Finalize();
 
 	// ゲームウィンドウの破棄
